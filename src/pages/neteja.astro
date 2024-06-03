@@ -1,0 +1,8 @@
+---
+// netegem la cookie i recarreguem la pàgina index
+let saldo = 150;
+let cookie = {"apostes":[], "jugades":[], saldo}
+Astro.cookies.set("ruleta", JSON.stringify(cookie), { path: '/' });
+return Astro.redirect('/');
+
+---

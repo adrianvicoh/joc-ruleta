@@ -4,28 +4,21 @@ import Layout from "../layouts/Layout.astro";
 let gameData;
 
 if (!Astro.cookies.has("ruleta")) {
-	Astro.cookies.set("ruleta", JSON.stringify([]), { path: "/" });
+	let saldo = 150;
+	let cookie = {"apostes":[], "jugades":[], saldo}
+	Astro.cookies.set("ruleta", JSON.stringify(cookie), { path: "/" });
 	return Astro.redirect("/");
 } else {
 	let cookie = Astro.cookies.get("ruleta");
 	gameData = JSON.parse(cookie.value); // ull! el valor està a .value
 }
 
-let currentMoney = 150;
-
-if (gameData.length !== 0) {
-	for(let i = 0; i < gameData.length; i++) {
-		currentMoney += gameData[i].prize;
-	}
-}
+let currentMoney = gameData.saldo;
+console.log(currentMoney)
 ---
 
 <Layout>
-	<h1>Ruleta</h1>
-	<h2>Saldo actual</h2>
-	<p>{currentMoney}</p>
-	<h2>Jugades</h2>
-	<h3>Aposta a un numero</h3>
+	<h2>Saldo actual: {currentMoney}</h2>
 	<!--{
 		for (let i = 0; i < 10; i++) {
 				<a href={"/jugades/" + i}></a>
@@ -33,22 +26,6 @@ if (gameData.length !== 0) {
 		}
 		
 	}-->
-	<a href="/jugades/1">1</a>
-	<a href="/jugades/2">2</a>
-	<a href="/jugades/3">3</a>
-	<a href="/jugades/4">4</a>
-	<a href="/jugades/5">5</a>
-	<a href="/jugades/6">6</a>
-	<a href="/jugades/7">7</a>
-	<a href="/jugades/8">9</a>
-	<a href="/jugades/10">10</a>
-	<h3>Aposta parell / imparell</h3>
-	<a href="/jugades/parell">Parell</a>
-	<a href="/jugades/imparell">Imparell</a>
-	<h3>Aposta vermell / negre</h3>
-	<a href="/jugades/vermell">Vermell</a>
-	<a href="/jugades/negre">Negre</a>
-
 	<table class="ruleta">
 		<tr>
 			<td  class="verd" rowspan="2"><a href="/jugades/0">0</a></td>
@@ -75,4 +52,5 @@ if (gameData.length !== 0) {
 			<td colspan="3" class="verd"><a href="/jugades/negre">Negre</a></td>
 		</tr>
 	</table>
+	<h2><a href="neteja">Reinicia el saldo i les jugades</a></h2>
 </Layout>
