@@ -6,7 +6,7 @@ let gameData;
 // Comprobar si existe la cookie, y si no, crearla
 if (!Astro.cookies.has("ruleta")) {
 	let saldo = 150;
-	let cookie = {"apostes":[], "jugades":[], saldo}
+	let cookie = { apostes: [], jugades: [], saldo };
 	Astro.cookies.set("ruleta", JSON.stringify(cookie), { path: "/" });
 	return Astro.redirect("/");
 } else {
@@ -18,36 +18,32 @@ if (!Astro.cookies.has("ruleta")) {
 let ruletaDisplay = "initial";
 let messageDisplay = "none";
 
-if(gameData.saldo < 10) {
+if (gameData.saldo < 10) {
 	ruletaDisplay = "none";
 	messageDisplay = "block";
 }
 
 // Cambiar de color las monedas con las jugadas
-const negres = [2,4,5,7,10]
+const negres = [2, 4, 5, 7, 10];
 
-let coinColor = "red";
-if (negres.includes(gameData.jugades[gameData.length - 1])) {
-	coinColor = "negre";
+function getColor(jugada) {
+	if (negres.includes(jugada)) {
+		return "negre";
+	} else {
+		return "vermell";
+	}
 }
 
 ---
 
 <Layout>
 	<h2>Saldo actual: {gameData.saldo}</h2>
-	<!--{
-		for (let i = 0; i < 10; i++) {
-				<a href={"/jugades/" + i}></a>
-			}
-		}
-		
-	}-->
 	<h1 style=`color: red; display: ${messageDisplay};`>Fi del joc</h1>
 	<table class="ruleta" style=`display: ${ruletaDisplay};`>
 		<tr>
-			<td  class="verd" rowspan="2"><a href="/jugades/0">0</a></td>
+			<td class="verd" rowspan="2"><a href="/jugades/0">0</a></td>
 			<td class="negre"><a href="/jugades/2">2</a></td>
-			<td class="negre"><a href="/jugades/4" >4</a></td>
+			<td class="negre"><a href="/jugades/4">4</a></td>
 			<td class="vermell"><a href="/jugades/6">6</a></td>
 			<td class="vermell"><a href="/jugades/8">8</a></td>
 			<td class="negre"><a href="/jugades/10">10</a></td>
@@ -58,23 +54,30 @@ if (negres.includes(gameData.jugades[gameData.length - 1])) {
 			<td class="negre"><a href="/jugades/5">5</a></td>
 			<td class="negre"><a href="/jugades/7">7</a></td>
 			<td class="vermell"><a href="/jugades/9">9</a></td>
-			
 		</tr>
 		<tr>
-			<td colspan="3" class="verd"><a href="/jugades/parell">Parell</a></td>
-			<td colspan="3" class="verd"><a href="/jugades/imparell">Imparell</a></td>
+			<td colspan="3" class="verd"
+				><a href="/jugades/parell">Parell</a></td
+			>
+			<td colspan="3" class="verd"
+				><a href="/jugades/imparell">Imparell</a></td
+			>
 		</tr>
 		<tr>
-			<td colspan="3" class="vermell"><a href="/jugades/vermell">Vermell</a></td>
-			<td colspan="3" class="negre"><a href="/jugades/negre">Negre</a></td>
+			<td colspan="3" class="vermell"
+				><a href="/jugades/vermell">Vermell</a></td
+			>
+			<td colspan="3" class="negre"><a href="/jugades/negre">Negre</a></td
+			>
 		</tr>
 	</table>
 	<h1>Jugades de la ruleta</h1>
 	<div class="resultats">
 		{
-			gameData.jugades.map(jugada => <div class="coin">{jugada}</div> )
+			gameData.jugades.map((jugada) => (
+				<div class={getColor(jugada) + " coin"}>{jugada}</div>
+			))
 		}
 	</div>
 	<h2><a href="neteja">Reinicia el saldo i les jugades</a></h2>
-
 </Layout>

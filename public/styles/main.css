@@ -1,5 +1,15 @@
 body {
     text-align: center;
+    background-image: url("/img/casino.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+div.principal {
+    background-color: rgba(240, 248, 255, 0.56);
+    width: 800px;
+    margin: 0 auto;
+    padding: 30px;
 }
 
 table.ruleta {
@@ -46,4 +56,12 @@ div.coin {
     background-color: black;
     padding: 10px;
     margin: 5px;
+}
+
+div.resultats div.vermell {
+    background-color: red;
+}
+
+div.resultats div.negre {
+    background-color: black;
 }

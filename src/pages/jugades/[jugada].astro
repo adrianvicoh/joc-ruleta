@@ -1,6 +1,4 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-
 const vermells = [1,3,6,8,9]
 const negres = [2,4,5,7,10]
 
@@ -9,14 +7,16 @@ function calculatePrize(jugadaPlayer, jugadaRuleta) {
     if (isNaN(jugadaPlayer)) {
         if (jugadaRuleta !== 0) {
             if ((jugadaRuleta % 2 === 0 && jugadaPlayer === "parell") || (jugadaRuleta % 2 !== 0 && jugadaPlayer === "imparell")) {
-                return 19
+                return 10
             } else if((vermells.includes(jugadaRuleta) && jugadaPlayer === "vermell") || (negres.includes(jugadaRuleta) && jugadaPlayer === "negre")) {
-                return 19
+                return 10
             } else {
                 return -10
             }
+        } else {
+            return -10
         }
-    } else if(parseInt(jugadaPlayer) === jugadaPlayer) {
+    } else if(parseInt(jugadaPlayer) === jugadaRuleta) {
         return 90
     } else {
         return -10
@@ -28,17 +28,23 @@ function randomizeRoulette() {
     return Math.floor(Math.random() * 10);
 }
 
-// Actualizar cooki con la apuesta, jugada y nuevo saldo
+// Actualizar cookie con la apuesta, jugada y nuevo saldo
 function updateCookie(jugadaPlayer, jugadaRuleta, prize) {
     let cookie = Astro.cookies.get("ruleta");
     let cookieData = JSON.parse(cookie.value);
     cookieData.apostes.push(jugadaPlayer);
     cookieData.jugades.push(jugadaRuleta);
     cookieData.saldo += prize;
+    // Si hi ha més de 20 jugades, eliminar la primera de totes
+    if(cookieData.apostes.length > 20) {
+        cookieData.apostes.shift();
+        cookieData.jugades.shift();
+        console.log(cookieData);
+    }
     Astro.cookies.set("ruleta", JSON.stringify(cookieData), { path: '/' });
 }
 
-// SAcar jugada del parámetro de la url
+// Sacar jugada del parámetro de la url
 const {jugada} = Astro.params;
 
 const jugadaRuleta = randomizeRoulette();

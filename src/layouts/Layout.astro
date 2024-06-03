@@ -8,12 +8,14 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<link rel="stylesheet" href="/styles/main.css">
+		<link rel="stylesheet" href="/styles/main.css" />
 		<title>Joc de Ruleta</title>
 	</head>
 	<body>
-		<h1>Joc de Ruleta</h1>
-        <hr>
-        <slot />
+		<div class="principal">
+			<h1>Joc de Ruleta</h1>
+			<hr />
+			<slot />
+		</div>
 	</body>
 </html>
