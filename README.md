@@ -1,6 +1,8 @@
 # Juego de ruleta con Astro
 
-Juego simple de ruleta hecho con Astro. Publicado en Netlify.
+Juego simple y esquemático de ruleta hecho con Astro. Publicado en Netlify.
+
+Web: https://ruleta-avh.netlify.app/
 
 # Astro Starter Kit: Minimal
 
