@@ -14,7 +14,9 @@ if (!Astro.cookies.has("ruleta")) {
 let currentMoney = 150;
 
 if (gameData.length !== 0) {
-	gameData.map( (data) => {currentMoney += data.prize})
+	for(let i = 0; i < gameData.length; i++) {
+		currentMoney += gameData[i].prize;
+	}
 }
 ---
 
@@ -46,4 +48,31 @@ if (gameData.length !== 0) {
 	<h3>Aposta vermell / negre</h3>
 	<a href="/jugades/vermell">Vermell</a>
 	<a href="/jugades/negre">Negre</a>
+
+	<table class="ruleta">
+		<tr>
+			<td  class="verd" rowspan="2"><a href="/jugades/0">0</a></td>
+			<td class="negre"><a href="/jugades/2">2</a></td>
+			<td class="negre"><a href="/jugades/4" >4</a></td>
+			<td class="vermell"><a href="/jugades/6">6</a></td>
+			<td class="vermell"><a href="/jugades/8">8</a></td>
+			<td class="negre"><a href="/jugades/10">10</a></td>
+		</tr>
+		<tr>
+			<td class="vermell"><a href="/jugades/1">1</a></td>
+			<td class="vermell"><a href="/jugades/3">3</a></td>
+			<td class="negre"><a href="/jugades/5">5</a></td>
+			<td class="negre"><a href="/jugades/7">7</a></td>
+			<td class="vermell"><a href="/jugades/9">9</a></td>
+			
+		</tr>
+		<tr>
+			<td colspan="3" class="verd"><a href="/jugades/parell">Parell</a></td>
+			<td colspan="3" class="verd"><a href="/jugades/imparell">Imparell</a></td>
+		</tr>
+		<tr>
+			<td colspan="3" class="verd"><a href="/jugades/vermell">Vermell</a></td>
+			<td colspan="3" class="verd"><a href="/jugades/negre">Negre</a></td>
+		</tr>
+	</table>
 </Layout>
