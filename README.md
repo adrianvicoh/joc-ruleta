@@ -1,3 +1,7 @@
+# Juego de ruleta con Astro
+
+Juego simple de ruleta hecho con Astro. Publicado en Netlify.
+
 # Astro Starter Kit: Minimal
 
 ```sh
