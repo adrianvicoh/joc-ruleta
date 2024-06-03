@@ -13,12 +13,18 @@ if (!Astro.cookies.has("ruleta")) {
 	gameData = JSON.parse(cookie.value); // ull! el valor està a .value
 }
 
-let currentMoney = gameData.saldo;
-console.log(currentMoney)
+let ruletaDisplay = "initial";
+let messageDisplay = "none";
+
+if(gameData.saldo < 10) {
+	ruletaDisplay = "none";
+	messageDisplay = "block";
+}
+
 ---
 
 <Layout>
-	<h2>Saldo actual: {currentMoney}</h2>
+	<h2>Saldo actual: {gameData.saldo}</h2>
 	<!--{
 		for (let i = 0; i < 10; i++) {
 				<a href={"/jugades/" + i}></a>
@@ -26,7 +32,8 @@ console.log(currentMoney)
 		}
 		
 	}-->
-	<table class="ruleta">
+	<h1 style=`color: red; display: ${messageDisplay};`>Fi del joc</h1>
+	<table class="ruleta" style=`display: ${ruletaDisplay};`>
 		<tr>
 			<td  class="verd" rowspan="2"><a href="/jugades/0">0</a></td>
 			<td class="negre"><a href="/jugades/2">2</a></td>
@@ -48,9 +55,15 @@ console.log(currentMoney)
 			<td colspan="3" class="verd"><a href="/jugades/imparell">Imparell</a></td>
 		</tr>
 		<tr>
-			<td colspan="3" class="verd"><a href="/jugades/vermell">Vermell</a></td>
-			<td colspan="3" class="verd"><a href="/jugades/negre">Negre</a></td>
+			<td colspan="3" class="vermell"><a href="/jugades/vermell">Vermell</a></td>
+			<td colspan="3" class="negre"><a href="/jugades/negre">Negre</a></td>
 		</tr>
 	</table>
+	<div class="resultats">
+		{
+			gameData.jugades.map(jugada => <div class="coin">{jugada}</div> )
+		}
+	</div>
 	<h2><a href="neteja">Reinicia el saldo i les jugades</a></h2>
+
 </Layout>
