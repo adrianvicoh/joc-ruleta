@@ -30,3 +30,20 @@ table.ruleta {
 .ruleta td.verd {
     background-color: green;
 }
+
+div.resultats {
+    width: 600px;
+    font-size: 22px;
+    color: white;
+    margin: 30px auto;
+}
+
+div.coin {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    background-color: black;
+    padding: 10px;
+    margin: 5px;
+}
