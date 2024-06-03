@@ -30,13 +30,25 @@ function randomizeRoulette() {
 
 function updateCookie(jugadaPlayer, jugadaRuleta, prize) {
     let cookieData = JSON.parse(cookie.value);
-    cookieData.push({data: jugadaPlayer, jugadaRuleta, prize});
+    console.log(cookieData)
+    console.log({"jugadaPlayer": jugadaPlayer, "jugadaRuleta": jugadaRuleta, "prize": prize})
+    cookieData.push({"jugadaPlayer": jugadaPlayer, "jugadaRuleta": jugadaRuleta, "prize": prize});
     Astro.cookies.set("ruleta", JSON.stringify(cookieData), { path: '/' });
 }
 
-const { jugadaPlayer } = Astro.params;
+const {jugadaPlayer} = Astro.params;
+
+console.log(jugadaPlayer)
 
 const jugadaRuleta = randomizeRoulette();
 
 let prize = calculatePrize(jugadaPlayer, jugadaRuleta);
+
+updateCookie(jugadaPlayer, jugadaRuleta, prize);
 ---
+<Layout>
+    <h2>Jugada del usuari: {jugadaPlayer}</h2>
+    <h2>Jugada del PC: {jugadaRuleta}</h2>
+    <h3>Guanys: {prize}</h3>
+    <a href="/">Torna a l'inici</a>
+</Layout>
