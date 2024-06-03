@@ -39,7 +39,6 @@ function updateCookie(jugadaPlayer, jugadaRuleta, prize) {
     if(cookieData.apostes.length > 20) {
         cookieData.apostes.shift();
         cookieData.jugades.shift();
-        console.log(cookieData);
     }
     Astro.cookies.set("ruleta", JSON.stringify(cookieData), { path: '/' });
 }
