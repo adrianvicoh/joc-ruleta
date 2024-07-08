@@ -1,8 +1,6 @@
 # Juego de ruleta con Astro
 
-Juego simple y esquemático de ruleta hecho con Astro, almacenando los datos de juego en una cookie. Publicado en Netlify.
-
-Web: https://ruleta-avh.netlify.app/
+Juego simple y esquemático de ruleta hecho con Astro, almacenando los datos de juego en una cookie.
 
 # Astro Starter Kit: Minimal
 
